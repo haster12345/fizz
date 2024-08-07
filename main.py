@@ -11,31 +11,43 @@ TIME_TO_MOVE = 10
 
 def main():
     refresh_counter = 0
-    move_counter = 0
+    x_move_counter = 0
     hit_left = True
     hit_right = False
+    hit_bottom = False
+    hit_top = True
+    y_move_counter = 0
 
     while True:
         while not hit_right:
             refresh_counter += 1
             if refresh_counter % TIME_TO_MOVE == 0:
-                move_counter += 1
-            move(move_counter)
+                x_move_counter += 1
+                y_move_counter += 1
+            particle(x_move_counter, y_move_counter)
             refresh()
-            if move_counter == RIGHT_BOUND:
+            if x_move_counter == RIGHT_BOUND:
                 hit_right = True
                 hit_left = False
+                hit_bottom = True
+                hit_top = False
 
         while not hit_left:
             refresh_counter += 1
             if refresh_counter % TIME_TO_MOVE == 0:
-                move_counter -= 1
-            move(move_counter)
+                x_move_counter -= 1
+                y_move_counter -= 1
+            particle(x_move_counter, y_move_counter)
             refresh()
-            if move_counter == 0:
+            if x_move_counter == 0:
                 hit_right = False
                 hit_left = True
+                hit_top = True
+                hit_bot = False
 
+
+def particle(x, y):
+    print('\n' * y, ' ' * x, '.')
 
 
 def refresh():
@@ -51,6 +63,10 @@ def refresh():
 def move(left_move_counter):
     print(' ' * left_move_counter,  '.' )
     return
+
+
+def move_y(y_move_counter):
+    print('\n'* y_move_counter, '.')
 
 
 if __name__ == '__main__':
